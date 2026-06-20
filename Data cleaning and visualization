@@ -1,0 +1,126 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.datasets import load_iris
+
+# -----------------------------
+# 1. Load dataset
+# -----------------------------
+
+iris = load_iris()
+
+df = pd.DataFrame(
+    iris.data,
+    columns=iris.feature_names
+)
+
+df["species"] = iris.target
+
+df["species"] = df["species"].map({
+    0: "Setosa",
+    1: "Versicolor",
+    2: "Virginica"
+})
+
+print("First 5 rows")
+print(df.head())
+
+# -----------------------------
+# 2. Dataset information
+# -----------------------------
+
+print("\nDataset Information")
+print(df.info())
+
+print("\nDataset Shape")
+print(df.shape)
+
+# -----------------------------
+# 3. Check missing values
+# -----------------------------
+
+print("\nMissing Values")
+
+print(df.isnull().sum())
+
+# -----------------------------
+# 4. Remove duplicate rows
+# -----------------------------
+
+duplicates = df.duplicated().sum()
+
+print("\nDuplicate Rows:", duplicates)
+
+df = df.drop_duplicates()
+
+# -----------------------------
+# 5. Save cleaned dataset
+# -----------------------------
+
+df.to_csv("cleaned_iris_dataset.csv", index=False)
+
+# -----------------------------
+# 6. Species distribution chart
+# -----------------------------
+
+plt.figure(figsize=(6,4))
+
+sns.countplot(x="species", data=df)
+
+plt.title("Species Distribution")
+
+plt.xlabel("Species")
+
+plt.ylabel("Count")
+
+plt.savefig("species_distribution.png")
+
+plt.show()
+
+# -----------------------------
+# 7. Correlation heatmap
+# -----------------------------
+
+plt.figure(figsize=(8,6))
+
+sns.heatmap(
+    df.drop("species", axis=1).corr(),
+    annot=True
+)
+
+plt.title("Correlation Heatmap")
+
+plt.savefig("correlation_heatmap.png")
+
+plt.show()
+
+# -----------------------------
+# 8. Outlier detection
+# -----------------------------
+
+plt.figure(figsize=(8,5))
+
+sns.boxplot(
+    data=df.drop("species", axis=1)
+)
+
+plt.title("Outlier Detection")
+
+plt.savefig("outlier_detection.png")
+
+plt.show()
+
+# -----------------------------
+# 9. Pairplot
+# -----------------------------
+
+sns.pairplot(
+    df,
+    hue="species"
+)
+
+plt.savefig("pairplot.png")
+
+plt.show()
+
+print("\nProject Completed Successfully")
