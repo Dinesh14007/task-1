@@ -3,9 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.datasets import load_iris
 
-# -----------------------------
 # 1. Load dataset
-# -----------------------------
 
 iris = load_iris()
 
@@ -25,9 +23,7 @@ df["species"] = df["species"].map({
 print("First 5 rows")
 print(df.head())
 
-# -----------------------------
 # 2. Dataset information
-# -----------------------------
 
 print("\nDataset Information")
 print(df.info())
@@ -35,17 +31,13 @@ print(df.info())
 print("\nDataset Shape")
 print(df.shape)
 
-# -----------------------------
 # 3. Check missing values
-# -----------------------------
 
 print("\nMissing Values")
 
 print(df.isnull().sum())
 
-# -----------------------------
 # 4. Remove duplicate rows
-# -----------------------------
 
 duplicates = df.duplicated().sum()
 
@@ -53,15 +45,11 @@ print("\nDuplicate Rows:", duplicates)
 
 df = df.drop_duplicates()
 
-# -----------------------------
 # 5. Save cleaned dataset
-# -----------------------------
 
 df.to_csv("cleaned_iris_dataset.csv", index=False)
 
-# -----------------------------
 # 6. Species distribution chart
-# -----------------------------
 
 plt.figure(figsize=(6,4))
 
@@ -77,9 +65,7 @@ plt.savefig("species_distribution.png")
 
 plt.show()
 
-# -----------------------------
 # 7. Correlation heatmap
-# -----------------------------
 
 plt.figure(figsize=(8,6))
 
@@ -94,9 +80,7 @@ plt.savefig("correlation_heatmap.png")
 
 plt.show()
 
-# -----------------------------
 # 8. Outlier detection
-# -----------------------------
 
 plt.figure(figsize=(8,5))
 
@@ -110,9 +94,7 @@ plt.savefig("outlier_detection.png")
 
 plt.show()
 
-# -----------------------------
 # 9. Pairplot
-# -----------------------------
 
 sns.pairplot(
     df,
